@@ -8,20 +8,20 @@ Fill out truth tables for the following expressions:
 ```
 A     B     result
 -------------------
-0     0       ?
-0     1       ?
-1     0       ?
-1     1       ?
+0     0       1
+0     1       0
+1     0       1
+1     1       1
 ```
 
 2. `(¬A ∨ B) ∧ ¬(A ∧ ¬B)`   (alternate: `(!A || B) && !(A && !B)`)
 ```
 A     B     result
 -------------------
-0     0       ?
-0     1       ?
-1     0       ?
-1     1       ?
+0     0       1
+0     1       1
+1     0       0
+1     1       1
 ```
 
 3. `¬(A ∨ B) ∨ ( (A ∨ C) ∧ ¬(B ∨ ¬C) )`   (alternate: `!(A || B) || ( (A || C) && !(B || !C) )`)
@@ -29,14 +29,14 @@ A     B     result
 ```
 A     B     C     result
 -------------------------
-0     0     0       ?
-0     0     1       ?
-0     1     0       ?
-0     1     1       ?
-1     0     0       ?
-1     0     1       ?
-1     1     0       ?
-1     1     1       ?
+0     0     0       1
+0     0     1       1
+0     1     0       0
+0     1     1       0
+1     0     0       0
+1     0     1       1
+1     1     0       0
+1     1     1       0
 ```
 
 ## STRETCH GOAL
@@ -64,14 +64,16 @@ How can you represent the SUM and CARRY of adding THREE digits with a truth tabl
 ```
 A     B     C      carry   sum
 --------------------------------
-0     0     0        ?      ?
-0     0     1        ?      ?
-0     1     0        ?      ?
-0     1     1        ?      ?
-1     0     0        ?      ?
-1     0     1        ?      ?
-1     1     0        ?      ?
-1     1     1        ?      ?
+0     0     0        0      0
+0     0     1        0      1
+0     1     0        0      1
+0     1     1        1      0
+1     0     0        0      1
+1     0     1        1      0
+1     1     0        1      0
+1     1     1        1      1
 ```
-* SUM = ?
-* CARRY = ?
+
+### We need to break this into 2 operations.  Sum the first two numbers, then sum the result with the 3rd number 
+* SUM = `(A xor B) xor C`
+* CARRY = `(A && B) or C(A xor B)`
