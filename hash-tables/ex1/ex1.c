@@ -8,6 +8,38 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
   HashTable *ht = create_hash_table(16);
 
   /* YOUR CODE HERE */
+  // malloc some memory for our answer struct with two integers inside
+  Answer *answer = malloc(sizeof(Answer));
+  
+  // insert all of our weights into the hash table as keys, with the corresponding values as their index in the input array
+  for (int i = 0; i < length; i++) {
+    hash_table_insert(ht, weights[i], i);
+  }
+
+  // loop through entries in hash table to see if the key for (limit - weight) exits.  If it does, those are our two weights and we'll return them
+  for (int i = 0; i < length; i++) {
+    // does (limit - current_weight) exist in the hash table???
+    int complement = hash_table_retrieve(ht, (limit - weights[i]));
+    // complement wasn't found
+    if (complement == -1) {
+      // move to next iteration
+      continue;
+      // complement was found
+    } else {
+      
+      if (i > complement) {
+        // first index is greater then complement
+        answer->index_1 = i;
+        answer->index_2 = complement;
+      } else {
+        // second index is greater
+        answer->index_1 = complement;
+        answer->index_2 = i;
+      }
+      destroy_hash_table(ht);
+      return answer;
+    }
+  }
 
   return NULL;
 }
